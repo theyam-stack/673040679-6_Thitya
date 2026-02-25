@@ -55,15 +55,7 @@ class SalesChartApp(QWidget):
         self.setLayout(main_layout)
 
         # Data storage
-        self.sales_data = []
-        
-        # 2026 Fintech & AI Color Theme
-        self.category_colors = {
-            "Electronics": "#0074F0",    # Cyber Blue (AI/Tech)
-            "Clothing": "#B026FF",       # Digital Purple (Metaverse/NFT)
-            "Food": "#4CFFBD",          # Neon Green (Sustainability)
-            "Others": "#FF3366"         # Hot Pink (Innovation)
-        }
+        self.sales_data = []}
         
         self.update_chart()
 
@@ -348,4 +340,5 @@ def main():
     sys.exit(app.exec())
 
 if __name__ == "__main__":
+
     main()
