@@ -124,7 +124,7 @@ class StudentListPage(QWidget):
             # remove card from the list
             self._cards.remove(card)       # ลบออกจาก list
             self._card_lay.removeWidget(card)
-            card.deleteLater()             # ✅ คืน memory ให้ Qt
+            card.deleteLater()             # คืน memory ให้ Qt
             # remove card from layout
             self._refresh_count()
             self._refresh_empty()
@@ -525,7 +525,7 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(860, 580)
         self.resize(980, 660)
         self.setStyleSheet(BASE)
-        self._build()           # ✅ ต้องเรียก!
+        self._build()           # Called!
 
     def _build(self):
         central = QWidget()
