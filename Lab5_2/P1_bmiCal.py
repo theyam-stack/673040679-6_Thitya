@@ -42,18 +42,15 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central)
 
         self.input_section.submit_btn.clicked.connect(
-            lambda: self.input_section.submit(self.output_section)
-        )
+            lambda: self.input_section.submit(self.output_section))
         self.input_section.clear_btn.clicked.connect(
-            lambda: self.input_section.clear(self.output_section)
-        )
+            lambda: self.input_section.clear(self.output_section))
 
 class InputSection(QWidget):
     def __init__(self):
         super().__init__()
         main_layout = QVBoxLayout()
         main_layout.setAlignment(Qt.AlignTop)
-        # main_layout.setContentsMargins(10, 10, 10, 10)
 
         # HEADER
         header = QLabel("Adult and Child BMI Calculator")
