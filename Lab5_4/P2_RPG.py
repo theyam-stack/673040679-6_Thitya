@@ -3,8 +3,7 @@ import sys, random
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QLineEdit, QComboBox, QSlider, QPushButton,
-    QMenuBar, QToolBar, QFileDialog, QStatusBar, QFrame
-)
+    QMenuBar, QToolBar, QFileDialog, QStatusBar, QFrame)
 from PySide6.QtGui import QAction, QIcon, QFont
 from PySide6.QtCore import Qt, QSize
 
@@ -73,8 +72,7 @@ class CharacterBuilder(QMainWindow):
             "DEX": "🏃",
             "INT": "🧠",
             "VIT": "❤️"
-        }
-        
+        } 
         for stat, icon in stat_icons.items():
             # Stat row
             stat_row = QHBoxLayout()
@@ -129,7 +127,6 @@ class CharacterBuilder(QMainWindow):
 
         main_layout.addLayout(left_panel, 1)
         main_layout.addWidget(self.sheet_widget)
-
         self.setCentralWidget(central)
 
         # Menu Bar 
@@ -191,9 +188,7 @@ class CharacterBuilder(QMainWindow):
         self.setStatusBar(self.status)
         self.status.showMessage("Ready — create your character", 0)
 
-        # Apply styling
-        self.apply_styling()
-
+        self.apply_styling() # Apply styling
         self.update_total()
         self.generate_sheet()
 
@@ -203,7 +198,6 @@ class CharacterBuilder(QMainWindow):
             QLabel {
                 color: #fff;
             }
-            
             QLineEdit, QComboBox {
                 background-color: white;
                 border: 2px solid #DDDDDD;
@@ -211,15 +205,12 @@ class CharacterBuilder(QMainWindow):
                 padding: 8px;
                 color: #333;
             }
-            
             QLineEdit:focus, QComboBox:focus {
                 border: 2px solid #8B7DD8;
             }
-            
             QComboBox::drop-down {
                 border: none;
             }
-            
             QSlider::groove:horizontal {
                 border: 1px solid #CCCCCC;
                 height: 6px;
@@ -227,7 +218,6 @@ class CharacterBuilder(QMainWindow):
                 margin: 2px 0;
                 border-radius: 3px;
             }
-            
             QSlider::handle:horizontal {
                 background: #5B7FD8;
                 border: 1px solid #4A6BC0;
@@ -236,11 +226,9 @@ class CharacterBuilder(QMainWindow):
                 margin: -6px 0;
                 border-radius: 8px;
             }
-            
             QSlider::handle:horizontal:hover {
                 background: #6B8FE8;
             }
-            
             QPushButton {
                 background-color: #8B7DD8;
                 color: white;
@@ -248,27 +236,22 @@ class CharacterBuilder(QMainWindow):
                 border-radius: 8px;
                 padding: 10px;
             }
-            
             QPushButton:hover {
                 background-color: #9B8DE8;
             }
-            
             QPushButton:pressed {
                 background-color: #7B6DC8;
             }
-            
             QFrame#characterSheet {
                 background-color: #2D2D3D;
                 border-radius: 15px;
                 border: 2px solid #3D3D4D;
             }
-            
             QStatusBar {
                 background-color: #333;
                 color: #FFE400;
             }
         """)
-
     def update_total(self):
         total = sum(slider.value() for slider in self.stats.values())
         self.total_label.setText(f"Points used: {total} / 40")
@@ -307,7 +290,6 @@ class CharacterBuilder(QMainWindow):
         subtext.setAlignment(Qt.AlignCenter)
         subtext.setStyleSheet("color: #888899; border: none;")
         self.sheet_panel.addWidget(subtext)
-
         self.sheet_panel.addSpacing(20)
 
         # Stats with dot patterns
@@ -343,7 +325,6 @@ class CharacterBuilder(QMainWindow):
             self.sheet_panel.addWidget(stat_container)
 
         self.sheet_panel.addStretch()
-
         self.status.showMessage("Character sheet generated", 0)
 
     def reset_all(self):
@@ -381,8 +362,7 @@ class CharacterBuilder(QMainWindow):
 
     def save_sheet(self):
         filename, _ = QFileDialog.getSaveFileName(
-            self, "Save Character Sheet", "character.txt", "Text Files (*.txt);;All Files (*)"
-        )
+            self, "Save Character Sheet", "character.txt", "Text Files (*.txt);;All Files (*)")
         if filename:
             with open(filename, "w", encoding="utf-8") as f:
                 f.write("RPG CHARACTER SHEET\n")
@@ -399,14 +379,10 @@ class CharacterBuilder(QMainWindow):
                 total = sum(slider.value() for slider in self.stats.values())
                 f.write(f"Total Points: {total} / 40\n")
             self.status.showMessage(f"Saved to {filename}", 4000)
-
-
 def main():
     app = QApplication(sys.argv)
     window = CharacterBuilder()
     window.show()
     sys.exit(app.exec())
-
-
 if __name__ == "__main__":
     main()
