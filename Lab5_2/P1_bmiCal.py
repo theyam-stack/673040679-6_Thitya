@@ -8,7 +8,6 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 
-
 kg = "kilograms"
 lb = "pounds"
 cm = "centimeters"
@@ -16,7 +15,6 @@ m = "meters"
 ft = "feet"
 adult = "Adults 20+"
 child = "Children and Teenagers (5-19)"
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -49,7 +47,6 @@ class MainWindow(QMainWindow):
         self.input_section.clear_btn.clicked.connect(
             lambda: self.input_section.clear(self.output_section)
         )
-
 
 class InputSection(QWidget):
     def __init__(self):
@@ -92,7 +89,6 @@ class InputSection(QWidget):
         weight_layout.addWidget(self.weight_unit)   
 
         form.addRow("Weight:", weight_layout)
-
 
         # HEIGHT ROW (input + unit inline)
         self.height_input = QLineEdit("")
@@ -143,15 +139,12 @@ class InputSection(QWidget):
 
             if w <= 0 or h <= 0:
                 return 0
-
             if self.weight_unit.currentText() == lb:
                 w *= 0.453592
-
             if self.height_unit.currentText() == cm:
                 h /= 100
             elif self.height_unit.currentText() == ft:
                 h *= 0.3048
-
             return round(w / (h ** 2), 2)
         except:
             return 0
@@ -160,7 +153,6 @@ class InputSection(QWidget):
         bmi = self.calculate()
         if bmi is not None:
             output.update(bmi, self.age_group.currentText())
-
 
 class OutputSection(QWidget):
     def __init__(self):
@@ -181,7 +173,6 @@ class OutputSection(QWidget):
         self.value.setFont(QFont("Arial", 22, QFont.Bold))
         self.value.setStyleSheet("color: #5B5BFF;")
         self.layout.addWidget(self.value)
-
         self.layout.addSpacing(15)
 
         # Placeholder container for dynamic content
@@ -191,7 +182,6 @@ class OutputSection(QWidget):
     def update(self, bmi, group):
         self.value.setText(f"{bmi:.2f}")
         self.clear_dynamic()
-
         if group == adult:
             self.show_adult_table()
         else:
@@ -216,7 +206,6 @@ class OutputSection(QWidget):
             ("25.1 - 30.0", "Overweight"),
             ("> 30.0", "Obese"),
         ]
-
         for i, (b, c) in enumerate(data, start=1):
             label1 = QLabel(b)
             label1.setStyleSheet("color: black;")
@@ -224,7 +213,6 @@ class OutputSection(QWidget):
             label2.setStyleSheet("color: black;")
             table.addWidget(label1, i, 0)
             table.addWidget(label2, i, 1)
-
         self.dynamic_container.addLayout(table)
 
     # Child Links
@@ -273,13 +261,10 @@ class OutputSection(QWidget):
             elif item.layout():
                 self.clear_layout(item.layout())
 
-
 def main():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
-
-
 if __name__ == "__main__":
     main()
