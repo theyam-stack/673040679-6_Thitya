@@ -1,11 +1,11 @@
 #P1_Personal_Info_Card, Name, Age, Email, Position, Favorite Color
-from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, QStatusBar, QWidget, QVBoxLayout, QFormLayout,
-                               QHBoxLayout, QLabel, QComboBox, QLineEdit, QPushButton,
-                               QFrame, QSpinBox, QColorDialog, QFileDialog, QToolBar, QTextEdit)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, QStatusBar, 
+                               QWidget, QVBoxLayout, QFormLayout, QHBoxLayout, QLabel, 
+                               QComboBox, QLineEdit, QPushButton, QFrame, QSpinBox, 
+                               QColorDialog, QFileDialog, QToolBar, QTextEdit)
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QAction, QIcon, QPixmap, QFont
-import sys
-import pyperclip
+import sys, pyperclip
 
 default_color = "#ADE9F1"
 
@@ -39,7 +39,6 @@ class InfoCardApp(QMainWindow):
         self.display_layout.setContentsMargins(0, 0, 0, 0)
         self.display_layout.setAlignment(Qt.AlignTop)
         layout.addWidget(self.display_area)
-
         layout.addStretch()
 
         # Display Area
@@ -150,7 +149,6 @@ class InfoCardApp(QMainWindow):
             border: 2px solid #999;
             border-radius: 4px;
         """)
-        
         self.color_btn = QPushButton("Pick New Color")
         self.color_btn.setFixedHeight(35)
         self.color_btn.clicked.connect(self.pick_color)
@@ -167,7 +165,6 @@ class InfoCardApp(QMainWindow):
         form_layout.addRow(color_label, color_row)
 
         return form_widget
-    
 
     # Actions
     def pick_color(self):
@@ -188,11 +185,9 @@ class InfoCardApp(QMainWindow):
         if not self.name_input.text().strip() or self.age_input.value() == 0:
             QMessageBox.warning(self, "Warning", "No information provided")
             return
-        
         if self.position_input.currentText() == "Choose your position":
             QMessageBox.warning(self, "Warning", "Please select your position!")
             return
-        
         # Clear previous card
         for i in reversed(range(self.display_layout.count())):
             widget = self.display_layout.itemAt(i).widget()
@@ -233,9 +228,7 @@ class InfoCardApp(QMainWindow):
 
         #self.display.setText(text)
         self.display_layout.addWidget(card)
-
         self.status.showMessage("Card generated", 2000)
-
 
     def save_card(self):
         if self.display_layout.count() == 0:
@@ -252,7 +245,6 @@ class InfoCardApp(QMainWindow):
 
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to save card:\n{str(e)}")
-
 
     def copy_card(self):
         pyperclip.copy(self.display.toPlainText())
@@ -343,7 +335,6 @@ class InfoCardApp(QMainWindow):
                 background-color: #BDC3C7;
             }
         """
-
 def main():
     app = QApplication(sys.argv)
     win = InfoCardApp()
