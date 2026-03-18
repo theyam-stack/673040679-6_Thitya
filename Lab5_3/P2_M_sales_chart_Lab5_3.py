@@ -37,14 +37,12 @@ class MainWindow(QMainWindow):
 class SalesChartApp(QWidget):
     def __init__(self):
         super().__init__()
-
         main_layout = QHBoxLayout()
         main_layout.setSpacing(30)
         main_layout.setContentsMargins(20, 20, 20, 20)
 
         # Left Panel - Controls
         left_panel = self.create_control_panel()
-        
         # Right Panel - Chart
         right_panel = self.create_chart_panel()
 
