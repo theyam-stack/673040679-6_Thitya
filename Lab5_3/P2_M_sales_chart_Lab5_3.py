@@ -1,13 +1,12 @@
 # P2 Lab 5-3
 import sys, os, matplotlib
-matplotlib.use("QtAgg")  # ensure QtAgg backend is used
-
+matplotlib.use("QtAgg")
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
+
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
-    QLineEdit, QLabel, QComboBox, QSpinBox, QFileDialog, QGroupBox, QMessageBox
-)
+    QLineEdit, QLabel, QComboBox, QSpinBox, QFileDialog, QGroupBox, QMessageBox)
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt
 
@@ -51,7 +50,6 @@ class SalesChartApp(QWidget):
 
         main_layout.addWidget(left_panel, 1)
         main_layout.addWidget(right_panel, 2)
-
         self.setLayout(main_layout)
 
         # Data storage
@@ -177,9 +175,7 @@ class SalesChartApp(QWidget):
 
         panel_layout.addStretch()
         panel.setLayout(panel_layout)
-
         return panel
-    
 
     def create_chart_panel(self):
         """Create right chart panel"""
@@ -202,12 +198,9 @@ class SalesChartApp(QWidget):
                 border: 2px solid rgba(0, 217, 255, 0.2);
             }
         """)
-        
         panel_layout.addWidget(self.canvas)
         panel.setLayout(panel_layout)
-
         return panel
-
 
     def select_file(self):
         filename, _ = QFileDialog.getOpenFileName(self, "Select Sales Data File", "", "Text Files (*.txt)")
@@ -243,7 +236,6 @@ class SalesChartApp(QWidget):
         
                 QMessageBox.information(self, "✅ Success", 
                     f"Imported {imported_count} records successfully!")
-        
             except Exception as e:
                 QMessageBox.critical(self, "❌ Import Error", 
                     f"Error reading file:/n{str(e)}")
@@ -332,13 +324,10 @@ class SalesChartApp(QWidget):
         self.figure.tight_layout()
         self.canvas.draw()
 
-
 def main():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
-
 if __name__ == "__main__":
-
     main()
