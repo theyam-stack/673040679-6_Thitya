@@ -127,7 +127,6 @@ class RoomCard(QWidget):
 
     def is_selected(self):
         return self._is_selected
-    
 
 class ConfirmDialog(QDialog):
     """
@@ -190,7 +189,6 @@ class ConfirmDialog(QDialog):
         layout.addWidget(room_name_label)
         layout.addStretch()
         layout.addWidget(ok_btn)
-
 # ─────────────────────────────────────────────
 #  Page 1: Booking Page
 # ─────────────────────────────────────────────
@@ -198,7 +196,6 @@ class BookingPage(QWidget):
     """
     Page 1 — Guest information form and room selection
     """
-
     def __init__(self):
         super().__init__()
         self.selected_room = None
@@ -296,9 +293,7 @@ class BookingPage(QWidget):
             lbl.setStyleSheet(label_style)
             form_layout.addRow(lbl, widget)
 
-
         main_layout.addWidget(form_frame)
-
 
         # ── Section 2: Room Selection ──
         room_title = QLabel("🛏 Select a Room")
@@ -312,7 +307,6 @@ class BookingPage(QWidget):
             ("Suite Room",    250, "Living room, Jacuzzi, Premium view", "👑"),
             ("Family Room",   160, "2 Bedrooms, Perfect for families",   "👨‍👩‍👧‍👦"),
         ]
-
         cards_layout = QHBoxLayout()
         cards_layout.setSpacing(14)
         cards_layout.setContentsMargins(0, 0, 0, 0)
@@ -328,7 +322,6 @@ class BookingPage(QWidget):
 
         cards_layout.addStretch()
         main_layout.addLayout(cards_layout)
-
 
         # ── Buttons ──
         btn_layout = QHBoxLayout()
@@ -440,9 +433,7 @@ class BookingPage(QWidget):
             "nights": nights,
             "total": total
         }
-
         return data_dict
-
 # ─────────────────────────────────────────────
 #  PAGE 2: ReviewPage
 # ─────────────────────────────────────────────
@@ -450,7 +441,6 @@ class ReviewPage(QWidget):
     """
     Page 2 — Review booking details before submitting
     """
-
     def __init__(self):
         super().__init__()
         self.current_data = {}
@@ -479,10 +469,7 @@ class ReviewPage(QWidget):
                 border-radius: 12px;
             }
         """)
-
-        # You can use other layout, like a form layout
         self.info_layout = QGridLayout(self.info_frame)
-
         display_data = [
             ("🛏  Room",            ""),
             ("💰  Price / Night",   f"$ -"),
@@ -493,12 +480,10 @@ class ReviewPage(QWidget):
             ("🌙  Nights",          f"- night(s)"),
             ("👥  Guests",          f"- guest(s)"),
         ]
-
         key_style = "font-weight: bold; color: #374151; font-size: 13px;"
         val_style = "color: #1f2937; font-size: 13px;"
 
         # Put labels and placeholder into the layout
-
         self.val_labels = {}   # เก็บ label ฝั่งขวาไว้ update ทีหลัง
 
         for row, (key, placeholder) in enumerate(display_data):
@@ -527,8 +512,8 @@ class ReviewPage(QWidget):
         self.total_label.setFont(QFont("Segoe UI", 14, QFont.Bold))
         self.total_label.setStyleSheet("color: #6366f1;")
         self.total_label.setAlignment(Qt.AlignRight)
+        
         layout.addWidget(self.total_label)
-
         layout.addStretch()
 
         # Buttons
@@ -549,7 +534,6 @@ class ReviewPage(QWidget):
             }
             QPushButton:hover { background-color: #e5e7eb; }
         """)
-
         self.submit_btn = QPushButton("✅  Confirm Booking")
         self.submit_btn.setFixedHeight(44)
         self.submit_btn.setFont(QFont("Segoe UI", 11, QFont.Bold))
@@ -564,7 +548,6 @@ class ReviewPage(QWidget):
             }
             QPushButton:hover { background-color: #16a34a; }
         """)
-
         btn_layout.addWidget(self.back_btn)
         btn_layout.addStretch()
         btn_layout.addWidget(self.submit_btn)
@@ -573,7 +556,6 @@ class ReviewPage(QWidget):
     def load_data(self, data: dict):
         """Receive data dict from BookingPage and populate the review layout"""
         self.current_data = data    
-
         # Set all values from data in appropriate labels
         mapping = {
             "🛏  Room": data.get("room"),
@@ -585,7 +567,6 @@ class ReviewPage(QWidget):
             "🌙  Nights": f"{data.get('nights')} night(s)",
             "👥  Guests": f"{data.get('guests')} guest(s)",
         }
-
         for key, value in mapping.items():
             if key in self.val_labels: 
                 self.val_labels[key].setText(value) #อัปเดตข้อความใน label ฝั่งขวาตาม key ที่กำหนดไว้
@@ -594,12 +575,10 @@ class ReviewPage(QWidget):
         total = data.get("total", 0)
         self.total_label.setText(f"💵 Total: $ {total}")
 
-
 class MainWindow(QMainWindow):
     """
     Main window — uses QStackedWidget to manage 2 pages
     """
-
     def __init__(self):
         super().__init__()
         self.setWindowTitle("CozyStay — Hotel Booking System")
@@ -627,25 +606,22 @@ class MainWindow(QMainWindow):
         # Set current stack index to the first page
         self.stack.setCurrentIndex(0)
         
-
         self.setStyleSheet("""
             QMainWindow { background-color: #f0f0ff; }
             QScrollArea  { background-color: transparent; }
             QWidget      { font-family: 'Segoe UI', 'Tahoma', sans-serif; }
         """)
-
+        
     # Slot for the next_btn on the booking page
     def _go_to_review(self):
         """Validate form, then switch to Review page"""
         
         data = self.booking_page.get_booking_data() # get booking data
-
         if data is None:
             return
         
         # Load Booking data into the review page
         self.review_page.load_data(data)
-
         # Set stack index to the review page
         self.stack.setCurrentIndex(1)
 
@@ -653,7 +629,6 @@ class MainWindow(QMainWindow):
     def _go_to_booking(self):
         """Go back to Booking page, form data remains intact"""
         self.stack.setCurrentIndex(0)
-
 
     # slot for the submit_btn on the review page
     def _on_submit(self):
@@ -664,8 +639,7 @@ class MainWindow(QMainWindow):
         dialog = ConfirmDialog(
                 guest_name=data["name"],
                 room_name=data["room"],
-                parent=self) # กำหนด parent เป็น self เพื่อให้ dialog อยู่บนหน้าต่างหลัก และปิด dialog ได้ง่ายขึ้นเมื่อกดปุ่ม OK
-        
+                parent=self) # กำหนด parent เป็น self เพื่อให้ dialog อยู่บนหน้าต่างหลัก และปิด dialog เมื่อกดปุ่ม OK
         # then show the dialog
         dialog.exec() # ใช้ exec_() เพื่อแสดง dialog และรอจนกว่าผู้ใช้จะปิด dialog
 
@@ -680,6 +654,5 @@ def main():
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
-
 if __name__ == "__main__":
     main()
