@@ -2,11 +2,9 @@ import sys
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QComboBox, QSpinBox, QPushButton, QTableWidget,
-    QTableWidgetItem, QHeaderView, QMessageBox
-)
+    QTableWidgetItem, QHeaderView, QMessageBox)
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QColor
-
 
 class GradeCalculator(QWidget):
     def __init__(self):
@@ -16,8 +14,7 @@ class GradeCalculator(QWidget):
         main_layout.setContentsMargins(35, 25, 35, 20) # Left, Top, Right, Bottom
         main_layout.setSpacing(10)
 
-        # Read students.txt file
-        self.students = {}
+        self.students = {} # Read students.txt file
         with open("c:/Users/asus/Downloads/students.txt", "r", encoding="utf-8") as f:
             for line in f:
                 if line.strip():
@@ -169,10 +166,8 @@ class GradeCalculator(QWidget):
         btn_layout.addWidget(reset_btn)
         btn_layout.addWidget(clear_btn)
         btn_layout.setAlignment(Qt.AlignCenter)  # Align buttons to the center
-        #btn_layout.addStretch()
 
         main_layout.addLayout(btn_layout)
-
         self.setLayout(main_layout)
         
         # Apply simple styles
@@ -226,7 +221,6 @@ class GradeCalculator(QWidget):
                 font-weight: medium;
             }
         """)
-
     def update_name(self, sid):
         """Update name display when student ID changes"""
         if sid == "Select Student ID":
@@ -237,8 +231,7 @@ class GradeCalculator(QWidget):
 
     def add_student(self):
         """Add student record to table"""
-        sid = self.id_combo.currentText()
-        
+        sid = self.id_combo.currentText() 
         if sid == "Select Student ID":
             QMessageBox.warning(self, "Error", "Please select a student ID")
             return
@@ -261,7 +254,6 @@ class GradeCalculator(QWidget):
                 if reply == QMessageBox.Yes:
                     self.update_row(row, sid, name, math, sci, eng, total, avg, grade)
                 return
-
         # Add new row
         row = self.table.rowCount()
         self.table.insertRow(row)
@@ -304,7 +296,6 @@ class GradeCalculator(QWidget):
                 score = int(val)
                 if score < 50:
                     item.setBackground(QColor(255, 200, 200))
-            
             if col == 7:
                 self.apply_grade_color(item, val)
             
@@ -351,7 +342,6 @@ class GradeCalculator(QWidget):
         elif avg >= 50: return "D"
         else: return "F"
 
-
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -369,6 +359,5 @@ def main():
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
-
 if __name__ == "__main__":
     main()
